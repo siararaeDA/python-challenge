@@ -4,14 +4,29 @@ import os
 # Your task is to create a Python script that analyzes the votes and calculates each of the following:
 
 
-# The total number of votes cast
-
+# Function to get the total number of votes cast
+def getTotalVotesCast(votesList):
+    totalVotes = len(votesList)
+    return totalVotes
 
 # A complete list of candidates who received votes
+def getCandidatesList(candidateList):
+    candidates = []
+    for candidate in candidateList:
+        if candidate not in candidates:
+            candidates.append(candidate)
 
+    return candidates
 
 # The percentage of votes each candidate won
-
+def getCandidateVotePercentage(voteList):
+    candidateVotes = {}
+    for candidate in voteList:
+        if candidate not in candidateVotes.keys():
+            candidateVotes[candidate] = 1
+        else:
+            candidateVotes[candidate] += 1
+    return candidateVotes
 
 # The total number of votes each candidate won
 
@@ -21,7 +36,8 @@ import os
 # Initialize variables
 voterIDList = []
 countiesList = []
-candidatesList = []
+candidatesVotesList = []
+votes = {}
 
 csvpath = os.path.join('Resources', 'election_data.csv')
 # Add this to the path to run from a different folder: os.path.dirname(__file__), 
@@ -38,7 +54,15 @@ with open(csvpath) as csvfile:
         # Create an array of counties
         countiesList.append(row[1])
         # Create an array of candidates
-        candidateList.append(row[2])
+        candidatesVotesList.append(row[2])
+        # Create a dictionary of Voter ID : Candidate
+        votes[row[0]] = row[2]
+
+totalVotes = getTotalVotesCast(voterIDList)
+candidates = getCandidatesList(candidatesVotesList)
+print(totalVotes)
+print(candidates)
+print(getCandidateVotePercentage(candidatesVotesList))
 
 # Election Results
 # -------------------------
