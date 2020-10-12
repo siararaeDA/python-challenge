@@ -22,8 +22,44 @@ def getAverageProfitsLosses(profLossList):
     return round(average, 2)
 
 # Find the greatest increase in profits (date and amount) over the entire period.
+def getGreatestIncreaseProfits(profLossList, monthsList):
+    greatestChange = 0
+    index = 0
+
+    # Find greatest increase
+    for i in range(1, len(profLossList)):
+        change = profLossList[i] - profLossList[i - 1]
+        if change > greatestChange:
+            greatestChange = change
+            index = i
+    
+    # Find the month to match the increase
+    month = monthsList[index]
+
+    # Turn into a string to return
+    greatestIncreaseInfo = month + " ($" + str(greatestChange) + ")"
+
+    return greatestIncreaseInfo
 
 # Find the greatest decrease in losses (date and amount) over the entire period.
+def getGreatestDecreaseProfits(profLossList, monthsList):
+    greatestChange = 0
+    index = 0
+
+    # Find greatest increase
+    for i in range(1, len(profLossList)):
+        change = profLossList[i] - profLossList[i - 1]
+        if change < greatestChange:
+            greatestChange = change
+            index = i
+    
+    # Find the month to match the increase
+    month = monthsList[index]
+
+    # Turn into a string to return
+    greatestDecreaseInfo = month + " ($" + str(greatestChange) + ")"
+
+    return greatestDecreaseInfo
 
 # Initialize variables
 monthsList = []
@@ -55,22 +91,16 @@ with open(csvpath) as csvfile:
 totalMonths = getTotalMonths(monthsList)
 profLossSum = getTotalProfitLosses(profitsLossesList)
 avgProfLoss = getAverageProfitsLosses(profitsLossesList)
+greatestIncreaseProfits = getGreatestIncreaseProfits(profitsLossesList, monthsList)
+greatestDecreaseProfits = getGreatestDecreaseProfits(profitsLossesList, monthsList)
+
+# Print analysis to the terminal and to a text file
 
 print("Financial Analysis")
 print("----------------------------")
 print(f"Total Months: {totalMonths}")
 print(f"Total: ${profLossSum}")
 print(f"Average Change: ${avgProfLoss}")
+print(f"Greatest Increase in Proifts: {greatestIncreaseProfits}")
+print(f"Greatest Decrease in Profits: {greatestDecreaseProfits}")
 print("----------------------------")
-
-# Example output:
-#
-# Financial Analysis
-# ----------------------------
-# Total Months: 86
-# Total: $38382578
-# Average  Change: $-2315.12
-# Greatest Increase in Profits: Feb-2012 ($1926159)
-# Greatest Decrease in Profits: Sep-2013 ($-2196167)
-
-# Print analysis to the terminal and to a text file
