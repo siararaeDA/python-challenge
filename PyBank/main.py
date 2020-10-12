@@ -13,9 +13,13 @@ def getTotalProfitLosses(profLossList):
 
 # Function to find the average of the changes in Profit/Losses over the entire period.
 def getAverageProfitsLosses(profLossList):
-    total = getTotalProfitLosses(profLossList)
-    average = total / len(profLossList)
-    return average
+    totalChange = 0
+
+    for i in range(1, len(profLossList)):
+        totalChange += profLossList[i] - profLossList[i - 1]
+    
+    average = totalChange / (len(profLossList) - 1)
+    return round(average, 2)
 
 # Find the greatest increase in profits (date and amount) over the entire period.
 
@@ -52,9 +56,12 @@ totalMonths = getTotalMonths(monthsList)
 profLossSum = getTotalProfitLosses(profitsLossesList)
 avgProfLoss = getAverageProfitsLosses(profitsLossesList)
 
+print("Financial Analysis")
+print("----------------------------")
 print(f"Total Months: {totalMonths}")
-print(f"Total: {profLossSum}")
-print(f"Average Change: {avgProfLoss}")
+print(f"Total: ${profLossSum}")
+print(f"Average Change: ${avgProfLoss}")
+print("----------------------------")
 
 # Example output:
 #
