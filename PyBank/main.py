@@ -72,14 +72,10 @@ csvpath = os.path.join('Resources', 'budget_data.csv')
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
-    # print(csvreader)
-
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
     for row in csvreader:
-
         # Create an array of months
         monthsList.append(row[0])
         # Create an array of profits/losses
