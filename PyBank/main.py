@@ -1,7 +1,28 @@
 import csv
 import os
 
-# Find the total number of months in the dataset
+# Define functions
+
+
+
+# Read in the data
+csvpath = os.path.join(os.path.dirname(__file__), 'Resources', 'budget_data.csv')
+
+totalMonths = 0
+
+with open(csvpath) as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+
+    # print(csvreader)
+
+    csv_header = next(csvreader)
+    print(f"CSV Header: {csv_header}")
+
+    # Read each row of data after the header
+    for row in csvreader:
+
+        # Find the total number of months in the dataset
+        totalMonths = totalMonths + 1
 
 # Find the net total of Profit/Losses (column 2) over the entire period.
 
