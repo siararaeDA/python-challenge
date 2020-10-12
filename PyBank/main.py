@@ -64,7 +64,6 @@ def getGreatestDecreaseProfits(profLossList, monthsList):
 # Initialize variables
 monthsList = []
 profitsLossesList = []
-bankDataDict = {}
 
 # Read in the data
 csvpath = os.path.join(os.path.dirname(__file__), 'Resources', 'budget_data.csv')
@@ -84,10 +83,8 @@ with open(csvpath) as csvfile:
         monthsList.append(row[0])
         # Create an array of profits/losses
         profitsLossesList.append(int(row[1]))
-        # Create a dictionary of the data
-        bankDataDict[row[0]] = row[1]
 
-# Output
+# Output values
 totalMonths = getTotalMonths(monthsList)
 profLossSum = getTotalProfitLosses(profitsLossesList)
 avgProfLoss = getAverageProfitsLosses(profitsLossesList)
