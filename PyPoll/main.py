@@ -19,7 +19,14 @@ def getCandidatesList(candidateList):
     return candidates
 
 # The percentage of votes each candidate won
-def getCandidateVotePercentage(voteList):
+def getCandidateVotePercentage(totalVotes, voteCount):
+    votePercentage = {}
+    for key in voteCount:
+        votePercentage[key] = round((voteCount[key] / totalVotes) * 100, 3)
+    return votePercentage
+
+# The total number of votes each candidate won
+def getCandidateVoteCount(voteList):
     candidateVotes = {}
     for candidate in voteList:
         if candidate not in candidateVotes.keys():
@@ -28,16 +35,20 @@ def getCandidateVotePercentage(voteList):
             candidateVotes[candidate] += 1
     return candidateVotes
 
-# The total number of votes each candidate won
-
-
 # The winner of the election based on popular vote.
+def getElectionWinner(voteCount):
+    highestVotes = 0
+    winner = ""
+    for key in voteCount:
+        if voteCount[key] > highestVotes:
+            highestVotes = voteCount[key]
+            winner = key
+    return winner
 
 # Initialize variables
 voterIDList = []
 countiesList = []
-candidatesVotesList = []
-votes = {}
+candidateVotesList = []
 
 csvpath = os.path.join('Resources', 'election_data.csv')
 # Add this to the path to run from a different folder: os.path.dirname(__file__), 
@@ -54,15 +65,17 @@ with open(csvpath) as csvfile:
         # Create an array of counties
         countiesList.append(row[1])
         # Create an array of candidates
-        candidatesVotesList.append(row[2])
-        # Create a dictionary of Voter ID : Candidate
-        votes[row[0]] = row[2]
+        candidateVotesList.append(row[2])
 
 totalVotes = getTotalVotesCast(voterIDList)
-candidates = getCandidatesList(candidatesVotesList)
+candidates = getCandidatesList(candidateVotesList)
+voteCounts = getCandidateVoteCount(candidateVotesList)
 print(totalVotes)
 print(candidates)
-print(getCandidateVotePercentage(candidatesVotesList))
+print(getCandidateVoteCount(candidateVotesList))
+print(getCandidateVotePercentage(totalVotes, voteCounts))
+print(getElectionWinner(voteCounts))
+
 
 # Election Results
 # -------------------------
