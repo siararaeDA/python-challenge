@@ -1,7 +1,25 @@
 import csv
 import os
 
-# Define functions
+# Function to find the total number of months in the dataset
+def getTotalMonths(monthsList):
+     totalMonths = len(monthsList)
+     return totalMonths
+
+# Function to find the net total of Profit/Losses (column 2) over the entire period.
+def getTotalProfitLosses(profLossList):
+    totalProfitsLosses = sum(profLossList)
+    return totalProfitsLosses
+
+# Function to find the average of the changes in Profit/Losses over the entire period.
+def getAverageProfitsLosses(profLossList):
+    total = getTotalProfitLosses(profLossList)
+    average = total / len(profLossList)
+    return average
+
+# Find the greatest increase in profits (date and amount) over the entire period.
+
+# Find the greatest decrease in losses (date and amount) over the entire period.
 
 # Initialize variables
 monthsList = []
@@ -10,8 +28,6 @@ bankDataDict = {}
 
 # Read in the data
 csvpath = os.path.join(os.path.dirname(__file__), 'Resources', 'budget_data.csv')
-
-totalMonths = 0
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -27,23 +43,18 @@ with open(csvpath) as csvfile:
         # Create an array of months
         monthsList.append(row[0])
         # Create an array of profits/losses
-        profitsLossesList.append(row[1])
+        profitsLossesList.append(int(row[1]))
         # Create a dictionary of the data
         bankDataDict[row[0]] = row[1]
 
+# Output
+totalMonths = getTotalMonths(monthsList)
+profLossSum = getTotalProfitLosses(profitsLossesList)
+avgProfLoss = getAverageProfitsLosses(profitsLossesList)
 
-# Find the total number of months in the dataset
-        
-
-# Find the net total of Profit/Losses (column 2) over the entire period.
-
-# Find the average of the changes in Profit/Losses over the entire period.
-
-# Find the greatest increase in profits (date and amount) over the entire period.
-
-# Find the greatest decrease in losses (date and amount) over the entire period.
-
-print(profitsLossesList)
+print(f"Total Months: {totalMonths}")
+print(f"Total: {profLossSum}")
+print(f"Average Change: {avgProfLoss}")
 
 # Example output:
 #
