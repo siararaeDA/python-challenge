@@ -96,11 +96,18 @@ greatestDecreaseProfits = getGreatestDecreaseProfits(profitsLossesList, monthsLi
 
 # Print analysis to the terminal and to a text file
 
-print("Financial Analysis")
-print("----------------------------")
-print(f"Total Months: {totalMonths}")
-print(f"Total: ${profLossSum}")
-print(f"Average Change: ${avgProfLoss}")
-print(f"Greatest Increase in Proifts: {greatestIncreaseProfits}")
-print(f"Greatest Decrease in Profits: {greatestDecreaseProfits}")
-print("----------------------------")
+line1 = "Financial Analysis\n"
+line2 = "----------------------------\n"
+line3 = str(f"Total Months: {totalMonths}\n")
+line4 = str(f"Total: ${profLossSum}\n")
+line5 = str(f"Average Change: ${avgProfLoss}\n")
+line6 = str(f"Greatest Increase in Proifts: {greatestIncreaseProfits}\n")
+line7 = str(f"Greatest Decrease in Profits: {greatestDecreaseProfits}\n")
+
+outputLines = [line1, line2, line3, line4, line5, line6, line7]
+
+filename = 'Results.txt'
+with open(filename, 'w') as file:
+    for line in outputLines:
+        print(line)
+        file.write(line)
