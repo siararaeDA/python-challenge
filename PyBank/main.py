@@ -3,7 +3,10 @@ import os
 
 # Define functions
 
-
+# Initialize variables
+monthsList = []
+profitsLossesList = []
+bankDataDict = {}
 
 # Read in the data
 csvpath = os.path.join(os.path.dirname(__file__), 'Resources', 'budget_data.csv')
@@ -21,8 +24,16 @@ with open(csvpath) as csvfile:
     # Read each row of data after the header
     for row in csvreader:
 
-        # Find the total number of months in the dataset
-        totalMonths = totalMonths + 1
+        # Create an array of months
+        monthsList.append(row[0])
+        # Create an array of profits/losses
+        profitsLossesList.append(row[1])
+        # Create a dictionary of the data
+        bankDataDict[row[0]] = row[1]
+
+
+# Find the total number of months in the dataset
+        
 
 # Find the net total of Profit/Losses (column 2) over the entire period.
 
@@ -31,6 +42,8 @@ with open(csvpath) as csvfile:
 # Find the greatest increase in profits (date and amount) over the entire period.
 
 # Find the greatest decrease in losses (date and amount) over the entire period.
+
+print(profitsLossesList)
 
 # Example output:
 #
